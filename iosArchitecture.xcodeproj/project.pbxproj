@@ -19,8 +19,8 @@
 		106396E62B416D930056230C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396E22B416D930056230C /* Post.swift */; };
 		106396EB2B416D9E0056230C /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 106396E92B416D9E0056230C /* PostCell.xib */; };
 		106396EC2B416D9E0056230C /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EA2B416D9E0056230C /* PostCell.swift */; };
-		106396F02B416DA70056230C /* PostListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EE2B416DA70056230C /* PostListViewController.swift */; };
-		106396F12B416DA70056230C /* PostListViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EF2B416DA70056230C /* PostListViewPresenter.swift */; };
+		106396F02B416DA70056230C /* MVPListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EE2B416DA70056230C /* MVPListViewController.swift */; };
+		106396F12B416DA70056230C /* PostListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EF2B416DA70056230C /* PostListPresenter.swift */; };
 		106396F42B416DAF0056230C /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396F32B416DAF0056230C /* Extensions.swift */; };
 		106396F82B416E860056230C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396F72B416E860056230C /* MainViewController.swift */; };
 		106396FE2B416EBC0056230C /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FA2B416EBC0056230C /* Storage.swift */; };
@@ -28,6 +28,9 @@
 		106397012B416EBC0056230C /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FD2B416EBC0056230C /* StorageError.swift */; };
 		106397032B416F040056230C /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106397022B416F040056230C /* VerticalStackView.swift */; };
 		106397052B416FD70056230C /* MainButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106397042B416FD70056230C /* MainButton.swift */; };
+		106397082B4173F80056230C /* MVCListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106397072B4173F80056230C /* MVCListViewController.swift */; };
+		1063970B2B4177220056230C /* MVVMListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1063970A2B4177220056230C /* MVVMListViewController.swift */; };
+		1063970D2B41772D0056230C /* PostListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1063970C2B41772D0056230C /* PostListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,8 +48,8 @@
 		106396E22B416D930056230C /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		106396E92B416D9E0056230C /* PostCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostCell.xib; sourceTree = "<group>"; };
 		106396EA2B416D9E0056230C /* PostCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostCell.swift; sourceTree = "<group>"; };
-		106396EE2B416DA70056230C /* PostListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListViewController.swift; sourceTree = "<group>"; };
-		106396EF2B416DA70056230C /* PostListViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListViewPresenter.swift; sourceTree = "<group>"; };
+		106396EE2B416DA70056230C /* MVPListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MVPListViewController.swift; sourceTree = "<group>"; };
+		106396EF2B416DA70056230C /* PostListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListPresenter.swift; sourceTree = "<group>"; };
 		106396F32B416DAF0056230C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		106396F72B416E860056230C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		106396FA2B416EBC0056230C /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
@@ -54,6 +57,9 @@
 		106396FD2B416EBC0056230C /* StorageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		106397022B416F040056230C /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		106397042B416FD70056230C /* MainButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainButton.swift; sourceTree = "<group>"; };
+		106397072B4173F80056230C /* MVCListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCListViewController.swift; sourceTree = "<group>"; };
+		1063970A2B4177220056230C /* MVVMListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMListViewController.swift; sourceTree = "<group>"; };
+		1063970C2B41772D0056230C /* PostListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,8 +157,8 @@
 		106396ED2B416DA70056230C /* MVP */ = {
 			isa = PBXGroup;
 			children = (
-				106396EF2B416DA70056230C /* PostListViewPresenter.swift */,
-				106396EE2B416DA70056230C /* PostListViewController.swift */,
+				106396EF2B416DA70056230C /* PostListPresenter.swift */,
+				106396EE2B416DA70056230C /* MVPListViewController.swift */,
 			);
 			path = MVP;
 			sourceTree = "<group>";
@@ -169,6 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				106396F62B416E790056230C /* MainViewController */,
+				106397062B4173E00056230C /* MVC */,
+				106397092B41770F0056230C /* MVVM */,
 				106396ED2B416DA70056230C /* MVP */,
 			);
 			path = Views;
@@ -190,6 +198,23 @@
 				106396FD2B416EBC0056230C /* StorageError.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		106397062B4173E00056230C /* MVC */ = {
+			isa = PBXGroup;
+			children = (
+				106397072B4173F80056230C /* MVCListViewController.swift */,
+			);
+			path = MVC;
+			sourceTree = "<group>";
+		};
+		106397092B41770F0056230C /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				1063970C2B41772D0056230C /* PostListViewModel.swift */,
+				1063970A2B4177220056230C /* MVVMListViewController.swift */,
+			);
+			path = MVVM;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -265,7 +290,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				106397002B416EBC0056230C /* UserDefaultStorage.swift in Sources */,
-				106396F12B416DA70056230C /* PostListViewPresenter.swift in Sources */,
+				106396F12B416DA70056230C /* PostListPresenter.swift in Sources */,
 				106396E32B416D930056230C /* Model.swift in Sources */,
 				106396E52B416D930056230C /* Log.swift in Sources */,
 				106396F82B416E860056230C /* MainViewController.swift in Sources */,
@@ -273,13 +298,16 @@
 				106396C72B416D480056230C /* AppDelegate.swift in Sources */,
 				106396EC2B416D9E0056230C /* PostCell.swift in Sources */,
 				106396F42B416DAF0056230C /* Extensions.swift in Sources */,
+				106397082B4173F80056230C /* MVCListViewController.swift in Sources */,
+				1063970D2B41772D0056230C /* PostListViewModel.swift in Sources */,
 				106397052B416FD70056230C /* MainButton.swift in Sources */,
-				106396F02B416DA70056230C /* PostListViewController.swift in Sources */,
+				106396F02B416DA70056230C /* MVPListViewController.swift in Sources */,
 				106396E42B416D930056230C /* Post + Data.swift in Sources */,
 				106396DD2B416D880056230C /* Api.swift in Sources */,
 				106397012B416EBC0056230C /* StorageError.swift in Sources */,
 				106397032B416F040056230C /* VerticalStackView.swift in Sources */,
 				106396C92B416D480056230C /* SceneDelegate.swift in Sources */,
+				1063970B2B4177220056230C /* MVVMListViewController.swift in Sources */,
 				106396FE2B416EBC0056230C /* Storage.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

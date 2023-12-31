@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol IPostListViewController: UIViewController {
+protocol IMVPListViewController: UIViewController {
     
     func updateView()
     
@@ -15,9 +15,9 @@ protocol IPostListViewController: UIViewController {
     
 }
 
-class PostListViewController: UIViewController {
+final class MVPListViewController: UIViewController {
 
-    var presenter: IPostListViewPresenter!
+    var presenter: IPostListPresenter!
     
     private var tableView: UITableView!
     
@@ -71,7 +71,7 @@ class PostListViewController: UIViewController {
     
 }
 
-extension PostListViewController: IPostListViewController {
+extension MVPListViewController: IMVPListViewController {
     
     func updateView() {
         
@@ -88,7 +88,7 @@ extension PostListViewController: IPostListViewController {
     
 }
 
-extension PostListViewController: UITableViewDataSource {
+extension MVPListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.presenter.posts.count

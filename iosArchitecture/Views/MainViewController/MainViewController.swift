@@ -30,19 +30,20 @@ final class MainViewController: UIViewController {
         buttonMVC.setTitle("MVC", for: .normal)
         buttonMVC.actionCompletion = { [weak self] in
             
+            self?.showMVC()
             
         }
         
         buttonMVVM.setTitle("MVVM", for: .normal)
         buttonMVVM.actionCompletion = { [weak self] in
             
-            
+            self?.showMVVM()
         }
         
         buttonMVP.setTitle("MVP", for: .normal)
         buttonMVP.actionCompletion = { [weak self] in
             
-            self?.showPostListViewController()
+            self?.showMVP()
             
         }
         
@@ -68,11 +69,34 @@ final class MainViewController: UIViewController {
         
     }
     
-    private func showPostListViewController() {
+    private func showMVC() {
+        
+        let viewController = MVCListViewController()
+        viewController.storage = UserDefaultStorage()
+        viewController.api = Api()
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
+    private func showMVVM() {
         
         let storage = UserDefaultStorage()
-        let presenter = PostListViewPresenter(storage: storage)
-        let viewController = PostListViewController()
+        let viewModel = PostListViewModel(storage: storage)
+        
+        let viewController = MVVMListViewController()
+        viewController.viewModel = viewModel
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
+    private func showMVP() {
+        
+        let storage = UserDefaultStorage()
+        let presenter = PostListPresenter(storage: storage)
+        
+        let viewController = MVPListViewController()
         viewController.presenter = presenter
         
         self.navigationController?.pushViewController(viewController, animated: true)

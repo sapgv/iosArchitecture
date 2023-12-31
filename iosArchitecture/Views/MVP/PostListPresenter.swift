@@ -1,5 +1,5 @@
 //
-//  PostListViewPresenter.swift
+//  PostListPresenter.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
@@ -8,9 +8,9 @@
 import Foundation
 import CoreData
 
-protocol IPostListViewPresenter {
+protocol IPostListPresenter {
 
-    var view: IPostListViewController? { get set }
+    var view: IMVPListViewController? { get set }
     
     var posts: [IPost] { get }
     
@@ -20,9 +20,9 @@ protocol IPostListViewPresenter {
     
 }
 
-class PostListViewPresenter: IPostListViewPresenter {
+class PostListPresenter: IPostListPresenter {
     
-    weak var view: IPostListViewController?
+    weak var view: IMVPListViewController?
     
     private(set) var posts: [IPost] = []
     
