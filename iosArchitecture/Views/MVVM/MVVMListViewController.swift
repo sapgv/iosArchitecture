@@ -78,16 +78,16 @@ final class MVVMListViewController: UIViewController {
     
 }
 
-extension MVVMListViewController: IMVPListViewController {
+extension MVVMListViewController {
     
-    func updateView() {
+    private func updateView() {
         
         self.endRefreshing()
         self.tableView.reloadData()
         
     }
     
-    func showError(error: Error) {
+    private func showError(error: Error) {
         
         print(error)
         
