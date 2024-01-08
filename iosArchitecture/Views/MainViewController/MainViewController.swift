@@ -84,7 +84,7 @@ final class MainViewController: UIViewController {
         let storage = UserDefaultStorage()
         let viewModel = PostListViewModel(storage: storage)
         
-        let viewController = MVVMListViewController()
+        let viewController = MVVMPostListViewController()
         viewController.viewModel = viewModel
         
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -94,12 +94,35 @@ final class MainViewController: UIViewController {
     private func showMVP() {
         
         let storage = UserDefaultStorage()
-        let presenter = PostListPresenter(storage: storage)
+        let presenter = MVPPostListPresenter(storage: storage)
+
+        //POSTS
+        let postListViewController = MVPPostListViewController()
+        postListViewController.presenter = presenter
         
-        let viewController = MVPListViewController()
-        viewController.presenter = presenter
+        let postListNavigationController = UINavigationController(rootViewController: postListViewController)
+        postListNavigationController.tabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "newspaper"), tag: 0)
         
-        self.navigationController?.pushViewController(viewController, animated: true)
+        //FAVOURITE
+        let favouritePostListPresenter = MVPFavouritePostListPresenter(storage: storage)
+        let favouritePostListViewController = MVPFavouritePostListViewController()
+        favouritePostListViewController.presenter = favouritePostListPresenter
+        
+        let favouriteListNavigationController = UINavigationController(rootViewController: favouritePostListViewController)
+        favouriteListNavigationController.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "heart.fill"), tag: 1)
+        
+        let tabBarViewController = MVPTabBarController()
+        tabBarViewController.setViewControllers([postListNavigationController, favouriteListNavigationController], animated: false)
+        
+        self.present(tabBarViewController, animated: true)
+        
+//        let storage = UserDefaultStorage()
+//        let presenter = PostListPresenter(storage: storage)
+//
+//        let viewController = MVPPostListViewController()
+//        viewController.presenter = presenter
+
+//        self.navigationController?.pushViewController(viewController, animated: true)
         
     }
     

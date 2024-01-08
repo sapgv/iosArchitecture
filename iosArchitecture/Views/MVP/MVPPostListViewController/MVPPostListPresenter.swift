@@ -1,16 +1,15 @@
 //
-//  PostListPresenter.swift
+//  MVPPostListPresenter.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
 //
 
 import Foundation
-import CoreData
 
-protocol IPostListPresenter {
+protocol IMVPPostListPresenter: AnyObject {
 
-    var view: IMVPListViewController? { get set }
+    var view: IMVPPostListViewController? { get set }
     
     var posts: [IPost] { get }
     
@@ -20,9 +19,9 @@ protocol IPostListPresenter {
     
 }
 
-class PostListPresenter: IPostListPresenter {
+final class MVPPostListPresenter: IMVPPostListPresenter {
     
-    weak var view: IMVPListViewController?
+    weak var view: IMVPPostListViewController?
     
     private(set) var posts: [IPost] = []
     
@@ -31,7 +30,7 @@ class PostListPresenter: IPostListPresenter {
     private let storage: IStorage
     
     init(api: IApi = Api(),
-         storage: IStorage) {
+         storage: IStorage = UserDefaultStorage()) {
         self.api = api
         self.storage = storage
     }

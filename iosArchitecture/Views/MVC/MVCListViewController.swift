@@ -124,7 +124,7 @@ extension MVCListViewController {
     
 }
 
-extension MVCListViewController: IMVPListViewController {
+extension MVCListViewController: IMVPPostListViewController {
     
     func updateView() {
         

@@ -1,61 +1,55 @@
 //
-//  MVVMListViewController.swift
+//  MVPFavouritePostListViewController.swift
 //  iosArchitecture
 //
-//  Created by Grigory Sapogov on 31.12.2023.
+//  Created by Grigory Sapogov on 08.01.2024.
 //
 
 import UIKit
 
-final class MVVMListViewController: UIViewController {
+protocol IMVPFavouritePostListViewController: UIViewController {
+    
+    func updateView()
+    
+    func showError(error: Error)
+    
+}
 
-    var viewModel: IPostListViewModel!
+final class MVPFavouritePostListViewController: UIViewController {
+    
+    var presenter: IMVPFavouritePostListPresenter!
     
     private var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Posts"
+        self.title = "Favourite"
         self.view.backgroundColor = .systemBackground
+        self.presenter.view = self
         self.setupTableView()
-        self.setupViewModel()
         self.layout()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.viewModel.fetchFromStorage()
+        self.presenter.fetchFavourites()
     }
 
     private func setupTableView() {
         
         self.tableView = UITableView()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
         
     }
     
-    private func setupViewModel() {
-        
-        self.viewModel.updateCompletion = { [weak self] error in
-            
-            if let error = error {
-                self?.showError(error: error)
-                return
-            }
-            
-            self?.updateView()
-            
-        }
-        
-    }
-    
     @objc
     private func refresh() {
         
-        self.viewModel.update()
+        self.presenter.fetchFavourites()
         
     }
     
@@ -78,16 +72,16 @@ final class MVVMListViewController: UIViewController {
     
 }
 
-extension MVVMListViewController {
+extension MVPFavouritePostListViewController: IMVPFavouritePostListViewController {
     
-    private func updateView() {
+    func updateView() {
         
         self.endRefreshing()
         self.tableView.reloadData()
         
     }
     
-    private func showError(error: Error) {
+    func showError(error: Error) {
         
         print(error)
         
@@ -95,17 +89,17 @@ extension MVVMListViewController {
     
 }
 
-extension MVVMListViewController: UITableViewDataSource {
+extension MVPFavouritePostListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.posts.count
+        self.presenter.posts.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
         
-        let post = self.viewModel.posts[indexPath.row]
+        let post = self.presenter.posts[indexPath.row]
         
         cell.setup(post: post)
         
@@ -113,4 +107,17 @@ extension MVVMListViewController: UITableViewDataSource {
         
     }
 
+}
+
+extension MVPFavouritePostListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let post = self.presenter.posts[indexPath.row]
+        
+//        self.showPost(post: post)
+        
+    }
+    
+    
 }

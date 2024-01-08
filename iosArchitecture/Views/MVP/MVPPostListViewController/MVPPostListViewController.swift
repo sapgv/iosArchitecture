@@ -1,5 +1,5 @@
 //
-//  PostListViewControllerMVP.swift
+//  MVPPostListViewController.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol IMVPListViewController: UIViewController {
+protocol IMVPPostListViewController: UIViewController {
     
     func updateView()
     
@@ -15,9 +15,9 @@ protocol IMVPListViewController: UIViewController {
     
 }
 
-final class MVPListViewController: UIViewController {
+final class MVPPostListViewController: UIViewController {
 
-    var presenter: IPostListPresenter!
+    var presenter: IMVPPostListPresenter!
     
     private var tableView: UITableView!
     
@@ -39,6 +39,7 @@ final class MVPListViewController: UIViewController {
         
         self.tableView = UITableView()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
@@ -71,7 +72,7 @@ final class MVPListViewController: UIViewController {
     
 }
 
-extension MVPListViewController: IMVPListViewController {
+extension MVPPostListViewController: IMVPPostListViewController {
     
     func updateView() {
         
@@ -86,9 +87,19 @@ extension MVPListViewController: IMVPListViewController {
         
     }
     
+    private func showPost(post: IPost) {
+        
+        let presenter = PostDetailViewPresenter(post: post)
+        let viewController = MVPPostDetailViewController()
+        viewController.presenter = presenter
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
 }
 
-extension MVPListViewController: UITableViewDataSource {
+extension MVPPostListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.presenter.posts.count
@@ -106,4 +117,17 @@ extension MVPListViewController: UITableViewDataSource {
         
     }
 
+}
+
+extension MVPPostListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let post = self.presenter.posts[indexPath.row]
+        
+        self.showPost(post: post)
+        
+    }
+    
+    
 }
