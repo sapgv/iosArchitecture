@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func createViewController() -> UIViewController {
         
-        let storage = UserDefaultStorage()
+        let storage = PostStorage()
         let presenter = PostListPresenter(storage: storage)
 
         //POSTS

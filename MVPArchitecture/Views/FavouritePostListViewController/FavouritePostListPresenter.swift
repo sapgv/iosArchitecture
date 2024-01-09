@@ -25,7 +25,7 @@ final class FavouritePostListPresenter: IFavouritePostListPresenter {
     
     private let storage: IStorage
     
-    init(storage: IStorage = UserDefaultStorage()) {
+    init(storage: IStorage = PostStorage()) {
         self.storage = storage
     }
     

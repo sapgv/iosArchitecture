@@ -26,7 +26,7 @@ final class PostDetailViewPresenter: IPostDetailViewPresenter {
     private let storage: IStorage
     
     init(post: IPost,
-         storage: IStorage = UserDefaultStorage()) {
+         storage: IStorage = PostStorage()) {
         self.post = post
         self.storage = storage
     }

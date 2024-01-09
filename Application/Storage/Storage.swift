@@ -17,6 +17,6 @@ protocol IStorage: AnyObject {
     
     func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
     
-    func isFavourite(post: IPost, completion: @escaping (Swift.Result<Bool, Error>) -> Void)
+    func isFavourite(post: IPost) -> Bool
     
 }

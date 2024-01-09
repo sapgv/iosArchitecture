@@ -30,4 +30,8 @@ class PostCell: UITableViewCell {
         self.bodyLabel.text = post.body
     }
     
+    func set(isFavourite: Bool) {
+        self.favouriteImageView?.isHidden = isFavourite == false
+    }
+    
 }

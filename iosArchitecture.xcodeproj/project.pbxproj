@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		1020DC1B2B4DA35E00A83B4A /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC192B4DA35E00A83B4A /* PostDetailViewController.swift */; };
 		1020DC1C2B4DA35E00A83B4A /* PostDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC1A2B4DA35E00A83B4A /* PostDetailViewPresenter.swift */; };
+		1020DC1E2B4DAB1A00A83B4A /* FavouriteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */; };
 		108B8F452B4D9DF700A23887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B8F442B4D9DF700A23887 /* AppDelegate.swift */; };
 		108B8F472B4D9DF700A23887 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B8F462B4D9DF700A23887 /* SceneDelegate.swift */; };
 		108B8F4C2B4D9DF700A23887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 108B8F4A2B4D9DF700A23887 /* Main.storyboard */; };
@@ -21,7 +22,7 @@
 		108B8F5E2B4D9E9A00A23887 /* FavouritePostListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DD072B4C4A14005D90E0 /* FavouritePostListPresenter.swift */; };
 		108B8F5F2B4D9EBC00A23887 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FD2B416EBC0056230C /* StorageError.swift */; };
 		108B8F602B4D9EBC00A23887 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FA2B416EBC0056230C /* Storage.swift */; };
-		108B8F612B4D9EBC00A23887 /* UserDefaultStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* UserDefaultStorage.swift */; };
+		108B8F612B4D9EBC00A23887 /* PostStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* PostStorage.swift */; };
 		108B8F622B4D9EED00A23887 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396DF2B416D930056230C /* Model.swift */; };
 		108B8F632B4D9EED00A23887 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396E12B416D930056230C /* Log.swift */; };
 		108B8F642B4D9EED00A23887 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396E22B416D930056230C /* Post.swift */; };
@@ -44,10 +45,10 @@
 		108B8F982B4DA01800A23887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 108B8F962B4DA01800A23887 /* Main.storyboard */; };
 		108B8F9A2B4DA01900A23887 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 108B8F992B4DA01900A23887 /* Assets.xcassets */; };
 		108B8F9D2B4DA01900A23887 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 108B8F9B2B4DA01900A23887 /* LaunchScreen.storyboard */; };
-		108B8FA52B4DA0CD00A23887 /* UserDefaultStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* UserDefaultStorage.swift */; };
+		108B8FA52B4DA0CD00A23887 /* PostStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* PostStorage.swift */; };
 		108B8FA62B4DA0CD00A23887 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FD2B416EBC0056230C /* StorageError.swift */; };
 		108B8FA72B4DA0CD00A23887 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FA2B416EBC0056230C /* Storage.swift */; };
-		108B8FA82B4DA0CD00A23887 /* UserDefaultStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* UserDefaultStorage.swift */; };
+		108B8FA82B4DA0CD00A23887 /* PostStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FC2B416EBC0056230C /* PostStorage.swift */; };
 		108B8FA92B4DA0CD00A23887 /* StorageError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FD2B416EBC0056230C /* StorageError.swift */; };
 		108B8FAA2B4DA0CD00A23887 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396FA2B416EBC0056230C /* Storage.swift */; };
 		108B8FAB2B4DA0D200A23887 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396DF2B416D930056230C /* Model.swift */; };
@@ -77,6 +78,7 @@
 /* Begin PBXFileReference section */
 		1020DC192B4DA35E00A83B4A /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		1020DC1A2B4DA35E00A83B4A /* PostDetailViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewPresenter.swift; sourceTree = "<group>"; };
+		1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteImageView.swift; sourceTree = "<group>"; };
 		106396DC2B416D880056230C /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		106396DF2B416D930056230C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		106396E02B416D930056230C /* Post + Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post + Data.swift"; sourceTree = "<group>"; };
@@ -88,7 +90,7 @@
 		106396EF2B416DA70056230C /* PostListPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostListPresenter.swift; sourceTree = "<group>"; };
 		106396F32B416DAF0056230C /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		106396FA2B416EBC0056230C /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
-		106396FC2B416EBC0056230C /* UserDefaultStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultStorage.swift; sourceTree = "<group>"; };
+		106396FC2B416EBC0056230C /* PostStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostStorage.swift; sourceTree = "<group>"; };
 		106396FD2B416EBC0056230C /* StorageError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StorageError.swift; sourceTree = "<group>"; };
 		106397072B4173F80056230C /* MVCListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVCListViewController.swift; sourceTree = "<group>"; };
 		1063970A2B4177220056230C /* MVVMPostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVVMPostListViewController.swift; sourceTree = "<group>"; };
@@ -217,7 +219,7 @@
 			isa = PBXGroup;
 			children = (
 				106396FA2B416EBC0056230C /* Storage.swift */,
-				106396FC2B416EBC0056230C /* UserDefaultStorage.swift */,
+				106396FC2B416EBC0056230C /* PostStorage.swift */,
 				106396FD2B416EBC0056230C /* StorageError.swift */,
 			);
 			path = Storage;
@@ -336,6 +338,7 @@
 				10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */,
 				10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */,
 				10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */,
+				1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -512,8 +515,9 @@
 				108B8F672B4D9EF400A23887 /* Extensions.swift in Sources */,
 				108B8F452B4D9DF700A23887 /* AppDelegate.swift in Sources */,
 				108B8F602B4D9EBC00A23887 /* Storage.swift in Sources */,
-				108B8F612B4D9EBC00A23887 /* UserDefaultStorage.swift in Sources */,
+				108B8F612B4D9EBC00A23887 /* PostStorage.swift in Sources */,
 				108B8F622B4D9EED00A23887 /* Model.swift in Sources */,
+				1020DC1E2B4DAB1A00A83B4A /* FavouriteImageView.swift in Sources */,
 				108B8F682B4D9F3800A23887 /* DetailTextLabel.swift in Sources */,
 				108B8F472B4D9DF700A23887 /* SceneDelegate.swift in Sources */,
 				108B8F642B4D9EED00A23887 /* Post.swift in Sources */,
@@ -536,7 +540,7 @@
 				108B8FA92B4DA0CD00A23887 /* StorageError.swift in Sources */,
 				108B8FBC2B4DA0E000A23887 /* PostCell.swift in Sources */,
 				108B8FB22B4DA0D200A23887 /* Log.swift in Sources */,
-				108B8FA82B4DA0CD00A23887 /* UserDefaultStorage.swift in Sources */,
+				108B8FA82B4DA0CD00A23887 /* PostStorage.swift in Sources */,
 				108B8FBF2B4DA0E000A23887 /* DetailTitleLabel.swift in Sources */,
 				108B8F892B4D9FFA00A23887 /* MVCListViewController.swift in Sources */,
 				108B8F762B4D9FAA00A23887 /* AppDelegate.swift in Sources */,
@@ -557,7 +561,7 @@
 				108B8FA62B4DA0CD00A23887 /* StorageError.swift in Sources */,
 				108B8FAC2B4DA0D200A23887 /* Post + Data.swift in Sources */,
 				108B8FAE2B4DA0D200A23887 /* Log.swift in Sources */,
-				108B8FA52B4DA0CD00A23887 /* UserDefaultStorage.swift in Sources */,
+				108B8FA52B4DA0CD00A23887 /* PostStorage.swift in Sources */,
 				108B8FAD2B4DA0D200A23887 /* Post.swift in Sources */,
 				108B8FB82B4DA0DF00A23887 /* DetailTextLabel.swift in Sources */,
 				108B8FB42B4DA0D700A23887 /* Api.swift in Sources */,

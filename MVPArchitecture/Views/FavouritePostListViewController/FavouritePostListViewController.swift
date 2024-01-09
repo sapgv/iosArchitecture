@@ -102,6 +102,7 @@ extension FavouritePostListViewController: UITableViewDataSource {
         let post = self.presenter.posts[indexPath.row]
         
         cell.setup(post: post)
+//        cell.set(isFavourite: self.presenter.isf)
         
         return cell
         

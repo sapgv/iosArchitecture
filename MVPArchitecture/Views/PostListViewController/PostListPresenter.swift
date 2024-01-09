@@ -17,6 +17,8 @@ protocol IPostListPresenter: AnyObject {
     
     func fetchFromStorage()
     
+    func isFavourite(post: IPost) -> Bool
+    
 }
 
 final class PostListPresenter: IPostListPresenter {
@@ -30,7 +32,7 @@ final class PostListPresenter: IPostListPresenter {
     private let storage: IStorage
     
     init(api: IApi = Api(),
-         storage: IStorage = UserDefaultStorage()) {
+         storage: IStorage = PostStorage()) {
         self.api = api
         self.storage = storage
     }
@@ -84,6 +86,12 @@ final class PostListPresenter: IPostListPresenter {
             }
             
         }
+        
+    }
+    
+    func isFavourite(post: IPost) -> Bool {
+        
+        self.storage.isFavourite(post: post)
         
     }
     

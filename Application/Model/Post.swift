@@ -15,9 +15,19 @@ protocol IPost: Codable {
     
     var body: String { get }
     
+    init(data: [String: Any])
+    
 }
 
-final class Post: Codable, IPost {
+final class Post: IPost, Codable, Hashable {
+    
+    static func == (lhs: Post, rhs: Post) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
     
     let id: Int
     
@@ -31,7 +41,7 @@ final class Post: Codable, IPost {
         self.body = body
     }
     
-    init(data: [String: Any]) {
+    required init(data: [String: Any]) {
         self.id = data["id"] as? Int ?? 0
         self.title = data["title"] as? String ?? ""
         self.body = data["body"] as? String ?? ""

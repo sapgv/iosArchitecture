@@ -110,8 +110,10 @@ extension PostListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
         
         let post = self.presenter.posts[indexPath.row]
+        let isFavourite = self.presenter.isFavourite(post: post)
         
         cell.setup(post: post)
+        cell.set(isFavourite: isFavourite)
         
         return cell
         
@@ -129,5 +131,14 @@ extension PostListViewController: UITableViewDelegate {
         
     }
     
+//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//
+//        let post = self.presenter.posts[indexPath.row]
+//
+////        self.presenter.st
+//
+////        let config = UISwipeActionsConfiguration(actions: <#T##[UIContextualAction]#>)
+//
+//    }
     
 }
