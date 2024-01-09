@@ -10,6 +10,8 @@
 		1020DC1B2B4DA35E00A83B4A /* PostDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC192B4DA35E00A83B4A /* PostDetailViewController.swift */; };
 		1020DC1C2B4DA35E00A83B4A /* PostDetailViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC1A2B4DA35E00A83B4A /* PostDetailViewPresenter.swift */; };
 		1020DC1E2B4DAB1A00A83B4A /* FavouriteImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */; };
+		1020DC202B4DB5F700A83B4A /* FavouriteTrailingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC1F2B4DB5F700A83B4A /* FavouriteTrailingAction.swift */; };
+		1020DC232B4DC9D300A83B4A /* Notification + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1020DC222B4DC9D300A83B4A /* Notification + Extension.swift */; };
 		108B8F452B4D9DF700A23887 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B8F442B4D9DF700A23887 /* AppDelegate.swift */; };
 		108B8F472B4D9DF700A23887 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 108B8F462B4D9DF700A23887 /* SceneDelegate.swift */; };
 		108B8F4C2B4D9DF700A23887 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 108B8F4A2B4D9DF700A23887 /* Main.storyboard */; };
@@ -30,7 +32,7 @@
 		108B8F662B4D9EF100A23887 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396DC2B416D880056230C /* Api.swift */; };
 		108B8F672B4D9EF400A23887 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396F32B416DAF0056230C /* Extensions.swift */; };
 		108B8F682B4D9F3800A23887 /* DetailTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */; };
-		108B8F692B4D9F3800A23887 /* AddFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */; };
+		108B8F692B4D9F3800A23887 /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* FavouriteButton.swift */; };
 		108B8F6A2B4D9F3800A23887 /* DetailTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */; };
 		108B8F6D2B4D9F4D00A23887 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 106396E92B416D9E0056230C /* PostCell.xib */; };
 		108B8F6E2B4D9F4D00A23887 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EA2B416D9E0056230C /* PostCell.swift */; };
@@ -65,12 +67,12 @@
 		108B8FB62B4DA0D800A23887 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396DC2B416D880056230C /* Api.swift */; };
 		108B8FB72B4DA0DF00A23887 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EA2B416D9E0056230C /* PostCell.swift */; };
 		108B8FB82B4DA0DF00A23887 /* DetailTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */; };
-		108B8FB92B4DA0DF00A23887 /* AddFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */; };
+		108B8FB92B4DA0DF00A23887 /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* FavouriteButton.swift */; };
 		108B8FBA2B4DA0DF00A23887 /* DetailTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */; };
 		108B8FBB2B4DA0DF00A23887 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 106396E92B416D9E0056230C /* PostCell.xib */; };
 		108B8FBC2B4DA0E000A23887 /* PostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 106396EA2B416D9E0056230C /* PostCell.swift */; };
 		108B8FBD2B4DA0E000A23887 /* DetailTextLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */; };
-		108B8FBE2B4DA0E000A23887 /* AddFavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */; };
+		108B8FBE2B4DA0E000A23887 /* FavouriteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCFD2B4C40F0005D90E0 /* FavouriteButton.swift */; };
 		108B8FBF2B4DA0E000A23887 /* DetailTitleLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */; };
 		108B8FC02B4DA0E000A23887 /* PostCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 106396E92B416D9E0056230C /* PostCell.xib */; };
 /* End PBXBuildFile section */
@@ -79,6 +81,8 @@
 		1020DC192B4DA35E00A83B4A /* PostDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewController.swift; sourceTree = "<group>"; };
 		1020DC1A2B4DA35E00A83B4A /* PostDetailViewPresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostDetailViewPresenter.swift; sourceTree = "<group>"; };
 		1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteImageView.swift; sourceTree = "<group>"; };
+		1020DC1F2B4DB5F700A83B4A /* FavouriteTrailingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTrailingAction.swift; sourceTree = "<group>"; };
+		1020DC222B4DC9D300A83B4A /* Notification + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification + Extension.swift"; sourceTree = "<group>"; };
 		106396DC2B416D880056230C /* Api.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		106396DF2B416D930056230C /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		106396E02B416D930056230C /* Post + Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Post + Data.swift"; sourceTree = "<group>"; };
@@ -118,7 +122,7 @@
 		108B8F9E2B4DA01900A23887 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTitleLabel.swift; sourceTree = "<group>"; };
 		10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextLabel.swift; sourceTree = "<group>"; };
-		10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFavouriteButton.swift; sourceTree = "<group>"; };
+		10E8DCFD2B4C40F0005D90E0 /* FavouriteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteButton.swift; sourceTree = "<group>"; };
 		10E8DD022B4C4845005D90E0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		10E8DD052B4C49A6005D90E0 /* FavouritePostListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePostListViewController.swift; sourceTree = "<group>"; };
 		10E8DD072B4C4A14005D90E0 /* FavouritePostListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritePostListPresenter.swift; sourceTree = "<group>"; };
@@ -156,6 +160,14 @@
 				1020DC192B4DA35E00A83B4A /* PostDetailViewController.swift */,
 			);
 			path = PostDetailViewPresenter;
+			sourceTree = "<group>";
+		};
+		1020DC212B4DC9BD00A83B4A /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				1020DC222B4DC9D300A83B4A /* Notification + Extension.swift */,
+			);
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		106396BA2B416D480056230C = {
@@ -322,6 +334,7 @@
 		108B8FA42B4DA07E00A23887 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				1020DC212B4DC9BD00A83B4A /* Notification */,
 				106396F92B416EBC0056230C /* Storage */,
 				106396DE2B416D930056230C /* Model */,
 				106396DB2B416D880056230C /* Api */,
@@ -337,8 +350,9 @@
 				106396E82B416D9E0056230C /* Xib */,
 				10E8DCF92B4C4047005D90E0 /* DetailTitleLabel.swift */,
 				10E8DCFB2B4C4089005D90E0 /* DetailTextLabel.swift */,
-				10E8DCFD2B4C40F0005D90E0 /* AddFavouriteButton.swift */,
+				10E8DCFD2B4C40F0005D90E0 /* FavouriteButton.swift */,
 				1020DC1D2B4DAB1A00A83B4A /* FavouriteImageView.swift */,
+				1020DC1F2B4DB5F700A83B4A /* FavouriteTrailingAction.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -506,12 +520,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				108B8F6A2B4D9F3800A23887 /* DetailTitleLabel.swift in Sources */,
+				1020DC232B4DC9D300A83B4A /* Notification + Extension.swift in Sources */,
 				1020DC1B2B4DA35E00A83B4A /* PostDetailViewController.swift in Sources */,
 				108B8F662B4D9EF100A23887 /* Api.swift in Sources */,
 				108B8F652B4D9EED00A23887 /* Post + Data.swift in Sources */,
 				108B8F5F2B4D9EBC00A23887 /* StorageError.swift in Sources */,
 				108B8F632B4D9EED00A23887 /* Log.swift in Sources */,
 				108B8F582B4D9E9A00A23887 /* FavouritePostListViewController.swift in Sources */,
+				1020DC202B4DB5F700A83B4A /* FavouriteTrailingAction.swift in Sources */,
 				108B8F672B4D9EF400A23887 /* Extensions.swift in Sources */,
 				108B8F452B4D9DF700A23887 /* AppDelegate.swift in Sources */,
 				108B8F602B4D9EBC00A23887 /* Storage.swift in Sources */,
@@ -527,7 +543,7 @@
 				108B8F5A2B4D9E9A00A23887 /* TabBarController.swift in Sources */,
 				108B8F5E2B4D9E9A00A23887 /* FavouritePostListPresenter.swift in Sources */,
 				108B8F5D2B4D9E9A00A23887 /* PostListPresenter.swift in Sources */,
-				108B8F692B4D9F3800A23887 /* AddFavouriteButton.swift in Sources */,
+				108B8F692B4D9F3800A23887 /* FavouriteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -550,7 +566,7 @@
 				108B8FAA2B4DA0CD00A23887 /* Storage.swift in Sources */,
 				108B8FB52B4DA0D800A23887 /* Extensions.swift in Sources */,
 				108B8FB02B4DA0D200A23887 /* Post + Data.swift in Sources */,
-				108B8FBE2B4DA0E000A23887 /* AddFavouriteButton.swift in Sources */,
+				108B8FBE2B4DA0E000A23887 /* FavouriteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,7 +588,7 @@
 				108B8FA72B4DA0CD00A23887 /* Storage.swift in Sources */,
 				108B8FB72B4DA0DF00A23887 /* PostCell.swift in Sources */,
 				108B8FBA2B4DA0DF00A23887 /* DetailTitleLabel.swift in Sources */,
-				108B8FB92B4DA0DF00A23887 /* AddFavouriteButton.swift in Sources */,
+				108B8FB92B4DA0DF00A23887 /* FavouriteButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

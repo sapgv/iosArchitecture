@@ -13,9 +13,11 @@ protocol IStorage: AnyObject {
     
     func fetchFromStorage(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
     
+    func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
+    
     func addToFavourite(post: IPost, completion: @escaping (Error?) -> Void)
     
-    func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
+    func removeFromFavourite(post: IPost, completion: @escaping (Error?) -> Void)
     
     func isFavourite(post: IPost) -> Bool
     

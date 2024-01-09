@@ -3,4 +3,54 @@
    uuid = "0357BFAA-D98C-4EFA-A645-F25B4FAE19CD"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "92ED469A-4F42-4270-92BB-050289A72511"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVPArchitecture/Views/PostDetailViewPresenter/PostDetailViewPresenter.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
+            landmarkName = "addToFavourite()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "92ED469A-4F42-4270-92BB-050289A72511 - dfa7c078302655b6"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVPArchitecture.PostDetailViewPresenter.addToFavourite() -&gt; ()"
+                  moduleName = "MVPArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sapogov/Projects/work/iosArchitecture/MVPArchitecture/Views/PostDetailViewPresenter/PostDetailViewPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "36">
+               </Location>
+               <Location
+                  uuid = "92ED469A-4F42-4270-92BB-050289A72511 - 2e9ac57b78af5b31"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in MVPArchitecture.PostDetailViewPresenter.addToFavourite() -&gt; ()"
+                  moduleName = "MVPArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sapogov/Projects/work/iosArchitecture/MVPArchitecture/Views/PostDetailViewPresenter/PostDetailViewPresenter.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "44"
+                  endingLineNumber = "44"
+                  offsetFromSymbolStart = "36">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

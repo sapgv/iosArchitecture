@@ -13,6 +13,8 @@ protocol IFavouritePostListPresenter: AnyObject {
     
     var posts: [IPost] { get }
     
+    var favouritesNeedUpdate: Bool { get }
+    
     func fetchFavourites()
     
 }
@@ -23,15 +25,26 @@ final class FavouritePostListPresenter: IFavouritePostListPresenter {
     
     private(set) var posts: [IPost] = []
     
+    private(set) var favouritesNeedUpdate: Bool = false
+    
     private let storage: IStorage
     
     init(storage: IStorage = PostStorage()) {
         self.storage = storage
+        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func fetchFavourites() {
         
         self.storage.fetchFavourites { [weak self] result in
+            
+            defer {
+                self?.favouritesNeedUpdate = false
+            }
             
             switch result {
             case let .failure(error):
@@ -47,6 +60,11 @@ final class FavouritePostListPresenter: IFavouritePostListPresenter {
             
         }
         
+    }
+    
+    @objc
+    private func favouritesDidChange() {
+        self.favouritesNeedUpdate = true
     }
     
 }

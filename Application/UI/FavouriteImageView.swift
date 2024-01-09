@@ -20,7 +20,7 @@ final class FavouriteImageView: UIImageView {
     }
     
     private func commontInit() {
-        self.image = UIImage(systemName: "heart.fill")
+        self.image = UIImage(systemName: "heart.fill")?.withTintColor(.systemRed, renderingMode: .alwaysOriginal)
     }
     
 }

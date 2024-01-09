@@ -11,6 +11,8 @@ protocol IPostListViewController: UIViewController {
     
     func updateView()
     
+    func updateViewFavourite(indexPath: IndexPath)
+    
     func showError(error: Error)
     
 }
@@ -81,6 +83,12 @@ extension PostListViewController: IPostListViewController {
         
     }
     
+    func updateViewFavourite(indexPath: IndexPath) {
+        
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+    }
+    
     func showError(error: Error) {
         
         print(error)
@@ -110,10 +118,11 @@ extension PostListViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
         
         let post = self.presenter.posts[indexPath.row]
+        
         let isFavourite = self.presenter.isFavourite(post: post)
         
         cell.setup(post: post)
-        cell.set(isFavourite: isFavourite)
+        cell.setup(isFavourite: isFavourite)
         
         return cell
         
@@ -131,14 +140,22 @@ extension PostListViewController: UITableViewDelegate {
         
     }
     
-//    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//
-//        let post = self.presenter.posts[indexPath.row]
-//
-////        self.presenter.st
-//
-////        let config = UISwipeActionsConfiguration(actions: <#T##[UIContextualAction]#>)
-//
-//    }
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let post = self.presenter.posts[indexPath.row]
+        
+        let favouriteTrailingAction = FavouriteTrailingAction()
+        
+        let action = favouriteTrailingAction.trailingAction(post: post) { [weak self] in
+            self?.presenter.addToFavourite(post: post)
+        } remove: { [weak self] in
+            self?.presenter.removeFromFavourite(post: post)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: [action])
+        
+        return config
+
+    }
     
 }

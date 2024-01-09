@@ -13,22 +13,34 @@ final class PostStorage: IStorage {
 
     private let favouriteKey = "favourite"
     
-    private var favouritesIds: [Int] {
-        self.favourites.map { $0.id }
+    private var favouritesIds: [Int] = []
+    
+    init() {
+        self.updateFavouritesIds()
+        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
     }
     
-    private var favourites: Set<Post> {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    private var favouritesSet: Set<Post> {
+        return Set<Post>(self.favourites)
+    }
+    
+    private var favourites: [Post] {
         get {
             guard let data = UserDefaults.standard.object(forKey: self.favouriteKey) as? Data else { return [] }
             let decoder = JSONDecoder()
-            let posts = try? decoder.decode(Set<Post>.self, from: data)
-            return posts ?? Set<Post>()
+            let posts = try? decoder.decode([Post].self, from: data)
+            return posts ?? []
         }
         set {
             let encoder = JSONEncoder()
             let encoded = try? encoder.encode(newValue)
             UserDefaults.standard.set(encoded, forKey: self.favouriteKey)
             UserDefaults.standard.synchronize()
+            NotificationCenter.default.post(name: .favouritesDidChange, object: nil)
         }
     }
     
@@ -95,27 +107,11 @@ final class PostStorage: IStorage {
         
     }
     
-    func addToFavourite(post: IPost, completion: @escaping (Error?) -> Void) {
-        
-        DispatchQueue.global().async {
-            
-            if let post = post as? Post {
-                self.favourites.insert(post)
-            }
-
-            DispatchQueue.main.async {
-                completion(nil)
-            }
-            
-        }
-        
-    }
-    
     func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void) {
         
         DispatchQueue.global().async {
             
-            let favourites = self.favourites
+            let favourites = self.favouritesSet
             
             let array = Array(favourites)
             
@@ -127,10 +123,51 @@ final class PostStorage: IStorage {
         
     }
     
+    func addToFavourite(post: IPost, completion: @escaping (Error?) -> Void) {
+        
+        DispatchQueue.global().async {
+            
+            if let post = post as? Post, !self.favourites.contains(post) {
+                self.favourites.append(post)
+            }
+
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+            
+        }
+        
+    }
+    
+    func removeFromFavourite(post: IPost, completion: @escaping (Error?) -> Void) {
+        
+        DispatchQueue.global().async {
+            
+            if let post = post as? Post {
+                self.favourites.removeAll(where: { $0.id == post.id })
+            }
+
+            DispatchQueue.main.async {
+                completion(nil)
+            }
+            
+        }
+        
+    }
+    
     func isFavourite(post: IPost) -> Bool {
         
         self.favouritesIds.contains(post.id)
         
+    }
+    
+    private func updateFavouritesIds() {
+        self.favouritesIds = self.favouritesSet.map { $0.id }
+    }
+    
+    @objc
+    private func favouritesDidChange() {
+        self.updateFavouritesIds()
     }
     
 }

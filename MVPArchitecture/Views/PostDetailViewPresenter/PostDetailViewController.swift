@@ -23,7 +23,7 @@ final class PostDetailViewController: UIViewController {
     
     private let textLabel: DetailTextLabel = DetailTextLabel()
     
-    private let addFavouriteButton: AddFavouriteButton = AddFavouriteButton()
+    private let favouriteButton: FavouriteButton = FavouriteButton()
     
     private let stackView = UIStackView()
     
@@ -38,6 +38,11 @@ final class PostDetailViewController: UIViewController {
         self.setupView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.updateView()
+    }
+    
     private func setupStackView() {
         
         self.stackView.axis = .vertical
@@ -49,10 +54,12 @@ final class PostDetailViewController: UIViewController {
     
     private func setupButton() {
             
-        self.addFavouriteButton.completion = { [weak self] in
-            
+        self.favouriteButton.add = { [weak self] in
             self?.presenter.addToFavourite()
-            
+        }
+        
+        self.favouriteButton.remove = { [weak self] in
+            self?.presenter.removeFromFavourite()
         }
         
     }
@@ -67,19 +74,19 @@ final class PostDetailViewController: UIViewController {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.addFavouriteButton.translatesAutoresizingMaskIntoConstraints = false
+        self.favouriteButton.translatesAutoresizingMaskIntoConstraints = false
         
         self.view.addSubview(stackView)
         
         self.stackView.addArrangedSubview(self.titleLabel)
         self.stackView.addArrangedSubview(self.textLabel)
-        self.stackView.addArrangedSubview(self.addFavouriteButton)
+        self.stackView.addArrangedSubview(self.favouriteButton)
         
         self.stackView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor, constant: 8).isActive = true
         self.stackView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 8).isActive = true
         self.stackView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor, constant: -8).isActive = true
         
-        self.addFavouriteButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        self.favouriteButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
     }
     
@@ -89,8 +96,7 @@ extension PostDetailViewController: IPostDetailViewController {
     
     func updateView() {
         
-//        self.endRefreshing()
-//        self.tableView.reloadData()
+        self.favouriteButton.isFavourite = self.presenter.isFavourite
         
     }
     

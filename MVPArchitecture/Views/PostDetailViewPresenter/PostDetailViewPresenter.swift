@@ -13,13 +13,25 @@ protocol IPostDetailViewPresenter: AnyObject {
     
     var post: IPost { get }
     
+    var isFavourite: Bool { get }
+    
+    var favouritesNeedUpdate: Bool { get }
+    
     func addToFavourite()
+    
+    func removeFromFavourite()
     
 }
 
 final class PostDetailViewPresenter: IPostDetailViewPresenter {
     
     let post: IPost
+    
+    var isFavourite: Bool {
+        self.storage.isFavourite(post: self.post)
+    }
+    
+    private(set) var favouritesNeedUpdate: Bool = false
     
     weak var view: IPostDetailViewController?
     
@@ -29,6 +41,11 @@ final class PostDetailViewPresenter: IPostDetailViewPresenter {
          storage: IStorage = PostStorage()) {
         self.post = post
         self.storage = storage
+        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     func addToFavourite() {
@@ -44,6 +61,26 @@ final class PostDetailViewPresenter: IPostDetailViewPresenter {
             
         }
         
+    }
+    
+    func removeFromFavourite() {
+        
+        self.storage.removeFromFavourite(post: self.post) { [weak self] error in
+            
+            if let error = error {
+                self?.view?.showError(error: error)
+                return
+            }
+            
+            self?.view?.updateView()
+            
+        }
+        
+    }
+    
+    @objc
+    private func favouritesDidChange() {
+        self.favouritesNeedUpdate = true
     }
     
 }

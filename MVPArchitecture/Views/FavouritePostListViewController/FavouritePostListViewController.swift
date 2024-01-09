@@ -33,6 +33,9 @@ final class FavouritePostListViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        if self.presenter.favouritesNeedUpdate {
+            self.update()
+        }
     }
 
     private func setupTableView() {
@@ -48,6 +51,12 @@ final class FavouritePostListViewController: UIViewController {
     
     @objc
     private func refresh() {
+        
+        self.update()
+        
+    }
+    
+    private func update() {
         
         self.presenter.fetchFavourites()
         
