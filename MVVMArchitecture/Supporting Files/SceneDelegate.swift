@@ -16,37 +16,43 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let scene = (scene as? UIWindowScene) else { return }
+        
+        self.window = UIWindow(windowScene: scene)
+        
+        self.window?.rootViewController = self.createViewController()
+        self.window?.makeKeyAndVisible()
+        
     }
 
-    func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-    }
+    private func createViewController() -> UIViewController {
+        
+        //Vacancies
 
-    func sceneDidBecomeActive(_ scene: UIScene) {
-        // Called when the scene has moved from an inactive state to an active state.
-        // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
-    }
+        let vacancyListViewModel = VacancyListModel()
 
-    func sceneWillResignActive(_ scene: UIScene) {
-        // Called when the scene will move from an active state to an inactive state.
-        // This may occur due to temporary interruptions (ex. an incoming phone call).
+        let vacancyListViewController = VacancyListViewController()
+        vacancyListViewController.viewModel = vacancyListViewModel
+        
+        let vacancyListNavigationController = UINavigationController(rootViewController: vacancyListViewController)
+        vacancyListNavigationController.tabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "newspaper"), tag: 0)
+        
+        //Favourite
+        
+        let favouriteVacancyListViewModel = FavouriteVacancyListViewModel()
+        
+        let favouriteVacancyListViewController = FavouriteVacancyListViewController()
+        favouriteVacancyListViewController.viewModel = favouriteVacancyListViewModel
+        
+        let favouriteVacancyListNavigationController = UINavigationController(rootViewController: favouriteVacancyListViewController)
+        favouriteVacancyListNavigationController.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "heart.fill"), tag: 1)
+        
+        let tabBarViewController = TabBarController()
+        tabBarViewController.setViewControllers([vacancyListNavigationController, favouriteVacancyListNavigationController], animated: false)
+        
+        return tabBarViewController
+        
     }
-
-    func sceneWillEnterForeground(_ scene: UIScene) {
-        // Called as the scene transitions from the background to the foreground.
-        // Use this method to undo the changes made on entering the background.
-    }
-
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-    }
-
 
 }
 

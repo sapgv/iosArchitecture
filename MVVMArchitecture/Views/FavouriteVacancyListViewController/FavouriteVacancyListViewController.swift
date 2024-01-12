@@ -1,36 +1,40 @@
 //
-//  MVVMPostListViewController.swift
-//  iosArchitecture
+//  FavouriteVacancyListViewController.swift
+//  MVVMArchitecture
 //
-//  Created by Grigory Sapogov on 31.12.2023.
+//  Created by Grigory Sapogov on 12.01.2024.
 //
 
 import UIKit
 
-final class MVVMPostListViewController: UIViewController {
-
-    var viewModel: IVacancyListViewModel!
+final class FavouriteVacancyListViewController: UIViewController {
+    
+    var viewModel: IFavouriteVacancyListViewModel!
     
     private var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Posts"
+        self.title = "Favourite"
         self.view.backgroundColor = .systemBackground
         self.setupTableView()
         self.setupViewModel()
+        self.viewModel.fetchFavourites()
         self.layout()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        self.viewModel.fetchFromStorage()
+        if self.viewModel.favouritesNeedUpdate {
+            self.update()
+        }
     }
 
     private func setupTableView() {
         
         self.tableView = UITableView()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
@@ -39,10 +43,10 @@ final class MVVMPostListViewController: UIViewController {
     
     private func setupViewModel() {
         
-        self.viewModel.updateCompletion = { [weak self] error in
+        self.viewModel.updateViewCompletion = { [weak self] error in
             
             if let error = error {
-                self?.showError(error: error)
+                print(error)
                 return
             }
             
@@ -55,7 +59,13 @@ final class MVVMPostListViewController: UIViewController {
     @objc
     private func refresh() {
         
-        self.viewModel.update()
+        self.update()
+        
+    }
+    
+    private func update() {
+        
+        self.viewModel.fetchFavourites()
         
     }
     
@@ -76,9 +86,19 @@ final class MVVMPostListViewController: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
+    private func showPost(vacancy: IVacancy) {
+        
+        let viewModel = VacancyDetailViewModel(vacancy: vacancy)
+        let viewController = VacancyDetailViewController()
+        viewController.viewModel = viewModel
+
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
 }
 
-extension MVVMPostListViewController {
+extension FavouriteVacancyListViewController {
     
     private func updateView() {
         
@@ -95,7 +115,7 @@ extension MVVMPostListViewController {
     
 }
 
-extension MVVMPostListViewController: UITableViewDataSource {
+extension FavouriteVacancyListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.viewModel.vacancies.count
@@ -113,4 +133,32 @@ extension MVVMPostListViewController: UITableViewDataSource {
         
     }
 
+}
+
+extension FavouriteVacancyListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vacancy = self.viewModel.vacancies[indexPath.row]
+        
+        self.showPost(vacancy: vacancy)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let vacancy = self.viewModel.vacancies[indexPath.row]
+        
+        let favouriteTrailingAction = FavouriteTrailingAction()
+        
+        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy, add: nil, remove: { [weak self] in
+            self?.viewModel.removeFromFavourite(vacancy: vacancy)
+        })
+        
+        let config = UISwipeActionsConfiguration(actions: [action])
+        
+        return config
+        
+    }
+    
 }

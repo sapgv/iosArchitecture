@@ -1,43 +1,32 @@
 //
-//  FavouriteVacancyListViewController.swift
-//  MVCArchitecture
+//  VacancyListViewController.swift
+//  MVVMArchitecture
 //
 //  Created by Grigory Sapogov on 12.01.2024.
 //
 
 import UIKit
 
-final class FavouriteVacancyListViewController: UIViewController {
-    
-    private var vacancies: [IVacancy] = []
-    
-    private var favouritesNeedUpdate: Bool = false
+final class VacancyListViewController: UIViewController {
+
+    var viewModel: IVacancyListModel!
     
     private var tableView: UITableView!
     
-    var storage: IStorage!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Favourite"
+        self.title = "Vacancy"
         self.view.backgroundColor = .systemBackground
         self.setupTableView()
-        self.fetchFavourites()
+        self.setupViewModel()
         self.layout()
-        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
-    }
-
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if self.favouritesNeedUpdate {
-            self.update()
-        }
+        self.viewModel.fetchFromStorage()
     }
-    
+
     private func setupTableView() {
         
         self.tableView = UITableView()
@@ -49,16 +38,30 @@ final class FavouriteVacancyListViewController: UIViewController {
         
     }
     
-    @objc
-    private func refresh() {
+    private func setupViewModel() {
         
-        self.update()
+        self.viewModel.updateViewCompletion = { [weak self] error in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            self?.updateView()
+            
+        }
+        
+        self.viewModel.updateViewFavourite = { [weak self] indexPath in
+            
+            self?.updateViewFavourite(indexPath: indexPath)
+        }
         
     }
     
-    private func update() {
+    @objc
+    private func refresh() {
         
-        self.fetchFavourites()
+        self.viewModel.update()
         
     }
     
@@ -79,24 +82,20 @@ final class FavouriteVacancyListViewController: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
-    private func showPost(vacancy: IVacancy) {
-        
-        let viewController = VacancyDetailViewController()
-        viewController.vacancy = vacancy
-        viewController.storage = VacancyStorage.shared
-
-        self.navigationController?.pushViewController(viewController, animated: true)
-        
-    }
-    
 }
 
-extension FavouriteVacancyListViewController {
+extension VacancyListViewController {
     
     private func updateView() {
         
         self.endRefreshing()
         self.tableView.reloadData()
+        
+    }
+    
+    private func updateViewFavourite(indexPath: IndexPath) {
+        
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
         
     }
     
@@ -106,68 +105,34 @@ extension FavouriteVacancyListViewController {
         
     }
     
-}
+    private func showPost(vacancy: IVacancy) {
+        
+        let viewModel = VacancyDetailViewModel(vacancy: vacancy)
+        let viewController = VacancyDetailViewController()
+        viewController.viewModel = viewModel
 
-//MARK: - Favourites
-
-extension FavouriteVacancyListViewController {
-    
-    private func fetchFavourites() {
+        self.navigationController?.pushViewController(viewController, animated: true)
         
-        self.storage.fetchFavourites { [weak self] result in
-            
-            defer {
-                self?.favouritesNeedUpdate = false
-            }
-            
-            switch result {
-            case let .failure(error):
-                self?.showError(error: error)
-            case let .success(vacancies):
-                self?.vacancies = vacancies
-                self?.updateView()
-            }
-            
-        }
-        
-    }
-    
-    private func removeFromFavourite(vacancy: IVacancy) {
-        
-        self.storage.removeFromFavourite(vacancy: vacancy) { [weak self] error in
-            
-            if let error = error {
-                self?.showError(error: error)
-                return
-            }
-            
-            self?.vacancies.removeAll(where: { $0.id == vacancy.id })
-            self?.updateView()
-            
-        }
-        
-    }
-    
-    @objc
-    private func favouritesDidChange() {
-        self.favouritesNeedUpdate = true
     }
     
 }
 
-extension FavouriteVacancyListViewController: UITableViewDataSource {
+extension VacancyListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.vacancies.count
+        self.viewModel.vacancies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "VacancyCell", for: indexPath) as? VacancyCell else { return UITableViewCell() }
         
-        let vacancy = self.vacancies[indexPath.row]
+        let vacancy = self.viewModel.vacancies[indexPath.row]
+        
+        let isFavourite = self.viewModel.isFavourite(vacancy: vacancy)
         
         cell.setup(vacancy: vacancy)
+        cell.setup(isFavourite: isFavourite)
         
         return cell
         
@@ -175,30 +140,32 @@ extension FavouriteVacancyListViewController: UITableViewDataSource {
 
 }
 
-extension FavouriteVacancyListViewController: UITableViewDelegate {
+extension VacancyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let vacancy = self.vacancies[indexPath.row]
+        let vacancy = self.viewModel.vacancies[indexPath.row]
         
         self.showPost(vacancy: vacancy)
         
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let vacancy = self.vacancies[indexPath.row]
+
+        let vacancy = self.viewModel.vacancies[indexPath.row]
         
         let favouriteTrailingAction = FavouriteTrailingAction()
         
-        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy, add: nil, remove: { [weak self] in
-            self?.removeFromFavourite(vacancy: vacancy)
-        })
-        
+        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy) { [weak self] in
+            self?.viewModel.addToFavourite(vacancy: vacancy)
+        } remove: { [weak self] in
+            self?.viewModel.removeFromFavourite(vacancy: vacancy)
+        }
+
         let config = UISwipeActionsConfiguration(actions: [action])
         
         return config
-        
+
     }
     
 }

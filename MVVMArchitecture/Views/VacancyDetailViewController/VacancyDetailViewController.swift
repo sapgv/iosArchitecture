@@ -1,6 +1,6 @@
 //
 //  VacancyDetailViewController.swift
-//  MVCArchitecture
+//  MVVMArchitecture
 //
 //  Created by Grigory Sapogov on 12.01.2024.
 //
@@ -9,13 +9,7 @@ import UIKit
 
 final class VacancyDetailViewController: UIViewController {
     
-    var vacancy: IVacancy!
-    
-    var storage: IStorage!
-    
-    private var isFavourite: Bool {
-        self.storage.isFavourite(vacancy: self.vacancy)
-    }
+    var viewModel: IVacancyDetailViewModel!
     
     private let titleLabel: DetailTitleLabel = DetailTitleLabel()
     
@@ -31,8 +25,9 @@ final class VacancyDetailViewController: UIViewController {
         self.view.backgroundColor = .systemBackground
         self.setupStackView()
         self.setupButton()
-        self.layout()
+        self.setupViewModel()
         self.setupView()
+        self.layout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,18 +47,33 @@ final class VacancyDetailViewController: UIViewController {
     private func setupButton() {
             
         self.favouriteButton.add = { [weak self] in
-            self?.addToFavourite()
+            self?.viewModel.addToFavourite()
         }
         
         self.favouriteButton.remove = { [weak self] in
-            self?.removeFromFavourite()
+            self?.viewModel.removeFromFavourite()
+        }
+        
+    }
+    
+    private func setupViewModel() {
+        
+        self.viewModel.updateViewCompletion = { [weak self] error in
+            
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            self?.updateView()
+            
         }
         
     }
     
     private func setupView() {
-        self.titleLabel.text = self.vacancy.title
-        self.textLabel.text = self.vacancy.body
+        self.titleLabel.text = self.viewModel.vacancy.title
+        self.textLabel.text = self.viewModel.vacancy.body
     }
     
     private func layout() {
@@ -91,43 +101,9 @@ final class VacancyDetailViewController: UIViewController {
 
 extension VacancyDetailViewController {
     
-    private func addToFavourite() {
-        
-        self.storage.addToFavourite(vacancy: self.vacancy) { [weak self] error in
-            
-            if let error = error {
-                self?.showError(error: error)
-                return
-            }
-            
-            self?.updateView()
-            
-        }
-        
-    }
-    
-    private func removeFromFavourite() {
-        
-        self.storage.removeFromFavourite(vacancy: self.vacancy) { [weak self] error in
-            
-            if let error = error {
-                self?.showError(error: error)
-                return
-            }
-            
-            self?.updateView()
-            
-        }
-        
-    }
-    
-}
-
-extension VacancyDetailViewController {
-    
     private func updateView() {
         
-        self.favouriteButton.isFavourite = self.isFavourite
+        self.favouriteButton.isFavourite = self.viewModel.isFavourite
         
     }
     
