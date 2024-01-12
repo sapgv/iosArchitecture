@@ -146,7 +146,7 @@ extension VacancyListViewController {
         
     }
     
-    private func showPost(vacancy: IVacancy) {
+    private func showVacancy(vacancy: IVacancy) {
         
         let viewController = VacancyDetailViewController()
         viewController.vacancy = vacancy
@@ -236,7 +236,7 @@ extension VacancyListViewController: UITableViewDelegate {
         
         let vacancy = self.vacancies[indexPath.row]
         
-        self.showPost(vacancy: vacancy)
+        self.showVacancy(vacancy: vacancy)
         
     }
     

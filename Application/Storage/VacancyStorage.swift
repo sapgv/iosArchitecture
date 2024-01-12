@@ -13,7 +13,7 @@ final class VacancyStorage: IStorage {
 
     private let favouriteKey = "favourite"
     
-    private var favouritesIds: [Int] = []
+    private var favouritesIds: Set<Int> = Set<Int>()
     
     static let shared: IStorage = VacancyStorage()
     
@@ -159,7 +159,8 @@ final class VacancyStorage: IStorage {
     }
     
     private func updateFavouritesIds() {
-        self.favouritesIds = self.favouritesSet.map { $0.id }
+        let array = self.favouritesSet.map { $0.id }
+        self.favouritesIds = Set<Int>(array)
     }
     
     private func updateFavouritesCompletion() {

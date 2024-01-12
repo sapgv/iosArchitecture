@@ -79,7 +79,7 @@ final class FavouriteVacancyListViewController: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
-    private func showPost(vacancy: IVacancy) {
+    private func showVacancy(vacancy: IVacancy) {
         
         let presenter = VacancyDetailViewPresenter(vacancy: vacancy)
         let viewController = VacancyDetailViewController()
@@ -134,7 +134,7 @@ extension FavouriteVacancyListViewController: UITableViewDelegate {
         
         let vacancy = self.presenter.vacancies[indexPath.row]
         
-        self.showPost(vacancy: vacancy)
+        self.showVacancy(vacancy: vacancy)
         
     }
     
