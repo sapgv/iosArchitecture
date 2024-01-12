@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol IPostListViewModel: AnyObject {
+protocol IVacancyListViewModel: AnyObject {
     
     var updateCompletion: ((Error?) -> Void)? { get set }
     
-    var posts: [IPost] { get }
+    var vacancies: [IVacancy] { get }
     
     func update()
     
@@ -19,9 +19,9 @@ protocol IPostListViewModel: AnyObject {
     
 }
 
-final class PostListViewModel: IPostListViewModel {
+final class PostListViewModel: IVacancyListViewModel {
     
-    private(set) var posts: [IPost] = []
+    private(set) var vacancies: [IVacancy] = []
     
     private let api: IApi
     
@@ -76,8 +76,8 @@ final class PostListViewModel: IPostListViewModel {
                 DispatchQueue.main.async {
                     self?.updateCompletion?(error)
                 }
-            case let .success(posts):
-                self?.posts = posts
+            case let .success(vacancies):
+                self?.vacancies = vacancies
                 DispatchQueue.main.async {
                     self?.updateCompletion?(nil)
                 }

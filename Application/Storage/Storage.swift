@@ -9,16 +9,18 @@ import Foundation
 
 protocol IStorage: AnyObject {
     
+    static var shared: IStorage { get }
+    
     func saveToStorage(array: [[String: Any]], completion: @escaping (Error?) -> Void)
     
-    func fetchFromStorage(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
+    func fetchFromStorage(completion: @escaping (Swift.Result<[IVacancy], Error>) -> Void)
     
-    func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void)
+    func fetchFavourites(completion: @escaping (Swift.Result<[IVacancy], Error>) -> Void)
     
-    func addToFavourite(post: IPost, completion: @escaping (Error?) -> Void)
+    func addToFavourite(vacancy: IVacancy, completion: @escaping (Error?) -> Void)
     
-    func removeFromFavourite(post: IPost, completion: @escaping (Error?) -> Void)
+    func removeFromFavourite(vacancy: IVacancy, completion: @escaping (Error?) -> Void)
     
-    func isFavourite(post: IPost) -> Bool
+    func isFavourite(vacancy: IVacancy) -> Bool
     
 }

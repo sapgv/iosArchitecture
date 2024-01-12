@@ -1,5 +1,5 @@
 //
-//  PostDetailViewPresenter.swift
+//  VacancyDetailViewPresenter.swift
 //  iosArchitecture
 //
 //  Created by Grigory Sapogov on 07.01.2024.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol IPostDetailViewPresenter: AnyObject {
+protocol IVacancyDetailViewPresenter: AnyObject {
     
-    var view: IPostDetailViewController? { get set }
+    var view: IVacancyDetailViewController? { get set }
     
-    var post: IPost { get }
+    var vacancy: IVacancy { get }
     
     var isFavourite: Bool { get }
     
@@ -23,34 +23,29 @@ protocol IPostDetailViewPresenter: AnyObject {
     
 }
 
-final class PostDetailViewPresenter: IPostDetailViewPresenter {
+final class VacancyDetailViewPresenter: IVacancyDetailViewPresenter {
     
-    let post: IPost
+    let vacancy: IVacancy
     
     var isFavourite: Bool {
-        self.storage.isFavourite(post: self.post)
+        self.storage.isFavourite(vacancy: self.vacancy)
     }
     
     private(set) var favouritesNeedUpdate: Bool = false
     
-    weak var view: IPostDetailViewController?
+    weak var view: IVacancyDetailViewController?
     
     private let storage: IStorage
     
-    init(post: IPost,
-         storage: IStorage = PostStorage()) {
-        self.post = post
+    init(vacancy: IVacancy,
+         storage: IStorage = VacancyStorage.shared) {
+        self.vacancy = vacancy
         self.storage = storage
-        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
-    }
-    
-    deinit {
-        NotificationCenter.default.removeObserver(self)
     }
     
     func addToFavourite() {
         
-        self.storage.addToFavourite(post: self.post) { [weak self] error in
+        self.storage.addToFavourite(vacancy: self.vacancy) { [weak self] error in
             
             if let error = error {
                 self?.view?.showError(error: error)
@@ -65,7 +60,7 @@ final class PostDetailViewPresenter: IPostDetailViewPresenter {
     
     func removeFromFavourite() {
         
-        self.storage.removeFromFavourite(post: self.post) { [weak self] error in
+        self.storage.removeFromFavourite(vacancy: self.vacancy) { [weak self] error in
             
             if let error = error {
                 self?.view?.showError(error: error)
@@ -76,11 +71,6 @@ final class PostDetailViewPresenter: IPostDetailViewPresenter {
             
         }
         
-    }
-    
-    @objc
-    private func favouritesDidChange() {
-        self.favouritesNeedUpdate = true
     }
     
 }

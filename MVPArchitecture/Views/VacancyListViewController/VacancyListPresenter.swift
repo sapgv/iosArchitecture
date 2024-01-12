@@ -1,5 +1,5 @@
 //
-//  PostListPresenter.swift
+//  VacancyListPresenter.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
@@ -7,36 +7,36 @@
 
 import Foundation
 
-protocol IPostListPresenter: AnyObject {
+protocol IVacancyListPresenter: AnyObject {
 
-    var view: IPostListViewController? { get set }
+    var view: IVacancyListViewController? { get set }
     
-    var posts: [IPost] { get }
+    var vacancies: [IVacancy] { get }
     
     func update()
     
     func fetchFromStorage()
     
-    func addToFavourite(post: IPost)
+    func addToFavourite(vacancy: IVacancy)
     
-    func removeFromFavourite(post: IPost)
+    func removeFromFavourite(vacancy: IVacancy)
     
-    func isFavourite(post: IPost) -> Bool
+    func isFavourite(vacancy: IVacancy) -> Bool
     
 }
 
-final class PostListPresenter: IPostListPresenter {
+final class VacancyListPresenter: IVacancyListPresenter {
     
-    weak var view: IPostListViewController?
+    weak var view: IVacancyListViewController?
     
-    private(set) var posts: [IPost] = []
+    private(set) var vacancies: [IVacancy] = []
     
     private let api: IApi
     
     private let storage: IStorage
     
     init(api: IApi = Api(),
-         storage: IStorage = PostStorage()) {
+         storage: IStorage = VacancyStorage.shared) {
         self.api = api
         self.storage = storage
     }
@@ -80,8 +80,8 @@ final class PostListPresenter: IPostListPresenter {
             switch result {
             case let .failure(error):
                 self?.view?.showError(error: error)
-            case let .success(posts):
-                self?.posts = posts
+            case let .success(vacancies):
+                self?.vacancies = vacancies
                 self?.view?.updateView()
             }
             
@@ -89,16 +89,16 @@ final class PostListPresenter: IPostListPresenter {
         
     }
     
-    func addToFavourite(post: IPost) {
+    func addToFavourite(vacancy: IVacancy) {
         
-        self.storage.addToFavourite(post: post) { [weak self] error in
+        self.storage.addToFavourite(vacancy: vacancy) { [weak self] error in
             
             if let error = error {
                 self?.view?.showError(error: error)
                 return
             }
             
-            if let index = self?.posts.firstIndex(where: { $0.id == post.id }) {
+            if let index = self?.vacancies.firstIndex(where: { $0.id == vacancy.id }) {
                 let i = Int(index)
                 let indexPath = IndexPath(row: i, section: 0)
                 self?.view?.updateViewFavourite(indexPath: indexPath)
@@ -107,16 +107,16 @@ final class PostListPresenter: IPostListPresenter {
         }
     }
     
-    func removeFromFavourite(post: IPost) {
+    func removeFromFavourite(vacancy: IVacancy) {
         
-        self.storage.removeFromFavourite(post: post) { [weak self] error in
+        self.storage.removeFromFavourite(vacancy: vacancy) { [weak self] error in
             
             if let error = error {
                 self?.view?.showError(error: error)
                 return
             }
             
-            if let index = self?.posts.firstIndex(where: { $0.id == post.id }) {
+            if let index = self?.vacancies.firstIndex(where: { $0.id == vacancy.id }) {
                 let i = Int(index)
                 let indexPath = IndexPath(row: i, section: 0)
                 self?.view?.updateViewFavourite(indexPath: indexPath)
@@ -126,9 +126,9 @@ final class PostListPresenter: IPostListPresenter {
         
     }
     
-    func isFavourite(post: IPost) -> Bool {
+    func isFavourite(vacancy: IVacancy) -> Bool {
         
-        self.storage.isFavourite(post: post)
+        self.storage.isFavourite(vacancy: vacancy)
         
     }
     

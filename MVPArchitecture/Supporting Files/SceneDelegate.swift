@@ -28,26 +28,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     private func createViewController() -> UIViewController {
         
-        let storage = PostStorage()
-        let presenter = PostListPresenter(storage: storage)
+        //Vacancies
 
-        //POSTS
-        let postListViewController = PostListViewController()
-        postListViewController.presenter = presenter
+        let presenter = VacancyListPresenter()
+
+        let vacancyListViewController = VacancyListViewController()
+        vacancyListViewController.presenter = presenter
         
-        let postListNavigationController = UINavigationController(rootViewController: postListViewController)
-        postListNavigationController.tabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "newspaper"), tag: 0)
+        let vacancyListNavigationController = UINavigationController(rootViewController: vacancyListViewController)
+        vacancyListNavigationController.tabBarItem = UITabBarItem(title: "Posts", image: UIImage(systemName: "newspaper"), tag: 0)
         
-        //FAVOURITE
-        let favouritePostListPresenter = FavouritePostListPresenter(storage: storage)
-        let favouritePostListViewController = FavouritePostListViewController()
-        favouritePostListViewController.presenter = favouritePostListPresenter
+        //Favourite
         
-        let favouriteListNavigationController = UINavigationController(rootViewController: favouritePostListViewController)
-        favouriteListNavigationController.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "heart.fill"), tag: 1)
+        let favouriteVacancyListPresenter = FavouriteVacancyListPresenter()
+        
+        let favouriteVacancyListViewController = FavouriteVacancyListViewController()
+        favouriteVacancyListViewController.presenter = favouriteVacancyListPresenter
+        
+        let favouriteVacancyListNavigationController = UINavigationController(rootViewController: favouriteVacancyListViewController)
+        favouriteVacancyListNavigationController.tabBarItem = UITabBarItem(title: "Favourite", image: UIImage(systemName: "heart.fill"), tag: 1)
         
         let tabBarViewController = TabBarController()
-        tabBarViewController.setViewControllers([postListNavigationController, favouriteListNavigationController], animated: false)
+        tabBarViewController.setViewControllers([vacancyListNavigationController, favouriteVacancyListNavigationController], animated: false)
         
         return tabBarViewController
         

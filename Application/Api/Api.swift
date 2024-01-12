@@ -21,7 +21,7 @@ final class Api: IApi {
             
             Thread.sleep(forTimeInterval: 2)
             
-            let array = Post.array
+            let array = Vacancy.array
             
             DispatchQueue.main.async {
                 

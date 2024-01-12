@@ -1,5 +1,5 @@
 //
-//  FavouritePostListViewController.swift
+//  FavouriteVacancyListViewController.swift
 //  iosArchitecture
 //
 //  Created by Grigory Sapogov on 08.01.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol IFavouritePostListViewController: UIViewController {
+protocol IFavouriteVacancyListViewController: UIViewController {
     
     func updateView()
     
@@ -15,9 +15,9 @@ protocol IFavouritePostListViewController: UIViewController {
     
 }
 
-final class FavouritePostListViewController: UIViewController {
+final class FavouriteVacancyListViewController: UIViewController {
     
-    var presenter: IFavouritePostListPresenter!
+    var presenter: IFavouriteVacancyListPresenter!
     
     private var tableView: UITableView!
     
@@ -45,7 +45,7 @@ final class FavouritePostListViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
+        self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
         
     }
     
@@ -79,9 +79,19 @@ final class FavouritePostListViewController: UIViewController {
         self.tableView.refreshControl?.endRefreshing()
     }
     
+    private func showPost(vacancy: IVacancy) {
+        
+        let presenter = VacancyDetailViewPresenter(vacancy: vacancy)
+        let viewController = VacancyDetailViewController()
+        viewController.presenter = presenter
+        
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
 }
 
-extension FavouritePostListViewController: IFavouritePostListViewController {
+extension FavouriteVacancyListViewController: IFavouriteVacancyListViewController {
     
     func updateView() {
         
@@ -98,20 +108,19 @@ extension FavouritePostListViewController: IFavouritePostListViewController {
     
 }
 
-extension FavouritePostListViewController: UITableViewDataSource {
+extension FavouriteVacancyListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.presenter.posts.count
+        self.presenter.vacancies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VacancyCell", for: indexPath) as? VacancyCell else { return UITableViewCell() }
         
-        let post = self.presenter.posts[indexPath.row]
+        let vacancy = self.presenter.vacancies[indexPath.row]
         
-        cell.setup(post: post)
-//        cell.set(isFavourite: self.presenter.isf)
+        cell.setup(vacancy: vacancy)
         
         return cell
         
@@ -119,15 +128,30 @@ extension FavouritePostListViewController: UITableViewDataSource {
 
 }
 
-extension FavouritePostListViewController: UITableViewDelegate {
+extension FavouriteVacancyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let post = self.presenter.posts[indexPath.row]
+        let vacancy = self.presenter.vacancies[indexPath.row]
         
-//        self.showPost(post: post)
+        self.showPost(vacancy: vacancy)
         
     }
     
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        let vacancy = self.presenter.vacancies[indexPath.row]
+        
+        let favouriteTrailingAction = FavouriteTrailingAction()
+        
+        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy, add: nil, remove: { [weak self] in
+            self?.presenter.removeFromFavourite(vacancy: vacancy)
+        })
+        
+        let config = UISwipeActionsConfiguration(actions: [action])
+        
+        return config
+        
+    }
     
 }

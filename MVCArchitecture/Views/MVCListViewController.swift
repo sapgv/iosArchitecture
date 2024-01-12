@@ -9,7 +9,7 @@ import UIKit
 
 final class MVCListViewController: UIViewController {
 
-    private var posts: [IPost] = []
+    private var vacancies: [IVacancy] = []
     
     private var tableView: UITableView!
     
@@ -36,7 +36,7 @@ final class MVCListViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
+        self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
         
     }
     
@@ -72,8 +72,8 @@ extension MVCListViewController {
                 DispatchQueue.main.async {
                     self?.showError(error: error)
                 }
-            case let .success(posts):
-                self?.posts = posts
+            case let .success(vacancies):
+                self?.vacancies = vacancies
                 DispatchQueue.main.async {
                     self?.updateView()
                 }
@@ -144,16 +144,16 @@ extension MVCListViewController {
 extension MVCListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.posts.count
+        self.vacancies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VacancyCell", for: indexPath) as? VacancyCell else { return UITableViewCell() }
         
-        let post = self.posts[indexPath.row]
+        let vacancy = self.vacancies[indexPath.row]
         
-        cell.setup(post: post)
+        cell.setup(vacancy: vacancy)
         
         return cell
         

@@ -9,7 +9,7 @@ import UIKit
 
 protocol IFavouriteTrailingAction: AnyObject {
     
-    func trailingAction(post: IPost, add: (() -> Void)?, remove: (() -> Void)?) -> UIContextualAction
+    func trailingAction(vacancy: IVacancy, add: (() -> Void)?, remove: (() -> Void)?) -> UIContextualAction
     
 }
 
@@ -17,13 +17,13 @@ final class FavouriteTrailingAction: IFavouriteTrailingAction {
     
     private let storage: IStorage
     
-    init(storage: IStorage = PostStorage()) {
+    init(storage: IStorage = VacancyStorage.shared) {
         self.storage = storage
     }
     
-    func trailingAction(post: IPost, add: (() -> Void)?, remove: (() -> Void)?) -> UIContextualAction {
+    func trailingAction(vacancy: IVacancy, add: (() -> Void)?, remove: (() -> Void)?) -> UIContextualAction {
         
-        let isFavourite = self.storage.isFavourite(post: post)
+        let isFavourite = self.storage.isFavourite(vacancy: vacancy)
         
         let style = isFavourite ? UIContextualAction.Style.destructive : .normal
         

@@ -1,5 +1,5 @@
 //
-//  PostStorage.swift
+//  VacancyStorage.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
@@ -7,40 +7,37 @@
 
 import Foundation
 
-final class PostStorage: IStorage {
+final class VacancyStorage: IStorage {
     
-    private let postKey = "posts"
+    private let arrayKey = "vacancies"
 
     private let favouriteKey = "favourite"
     
     private var favouritesIds: [Int] = []
     
-    init() {
+    static let shared: IStorage = VacancyStorage()
+    
+    private init() {
         self.updateFavouritesIds()
-        NotificationCenter.default.addObserver(self, selector: #selector(favouritesDidChange), name: .favouritesDidChange, object: nil)
     }
     
-    deinit {
-        NotificationCenter.default.removeObserver(self)
+    private var favouritesSet: Set<Vacancy> {
+        return Set<Vacancy>(self.favourites)
     }
     
-    private var favouritesSet: Set<Post> {
-        return Set<Post>(self.favourites)
-    }
-    
-    private var favourites: [Post] {
+    private var favourites: [Vacancy] {
         get {
             guard let data = UserDefaults.standard.object(forKey: self.favouriteKey) as? Data else { return [] }
             let decoder = JSONDecoder()
-            let posts = try? decoder.decode([Post].self, from: data)
-            return posts ?? []
+            let vacancies = try? decoder.decode([Vacancy].self, from: data)
+            return vacancies ?? []
         }
         set {
             let encoder = JSONEncoder()
             let encoded = try? encoder.encode(newValue)
             UserDefaults.standard.set(encoded, forKey: self.favouriteKey)
             UserDefaults.standard.synchronize()
-            NotificationCenter.default.post(name: .favouritesDidChange, object: nil)
+            self.updateFavouritesCompletion()
         }
     }
     
@@ -50,13 +47,13 @@ final class PostStorage: IStorage {
             
             do {
                 
-                let posts = array.map { Post(data: $0) }
+                let vacancies = array.map { Vacancy(data: $0) }
                 
                 let encoder = JSONEncoder()
                 
-                let encoded = try encoder.encode(posts)
+                let encoded = try encoder.encode(vacancies)
                 
-                UserDefaults.standard.set(encoded, forKey: self.postKey)
+                UserDefaults.standard.set(encoded, forKey: self.arrayKey)
                 UserDefaults.standard.synchronize()
                 
                 DispatchQueue.main.async {
@@ -75,13 +72,13 @@ final class PostStorage: IStorage {
     }
     
     
-    func fetchFromStorage(completion: @escaping (Swift.Result<[IPost], Error>) -> Void) {
+    func fetchFromStorage(completion: @escaping (Swift.Result<[IVacancy], Error>) -> Void) {
         
         DispatchQueue.global().async {
             
             do {
                 
-                guard let data = UserDefaults.standard.object(forKey: self.postKey) as? Data else {
+                guard let data = UserDefaults.standard.object(forKey: self.arrayKey) as? Data else {
                     DispatchQueue.main.async {
                         completion(.success([]))
                     }
@@ -90,10 +87,10 @@ final class PostStorage: IStorage {
                 
                 let decoder = JSONDecoder()
                 
-                let posts = try decoder.decode([Post].self, from: data)
+                let vacancies = try decoder.decode([Vacancy].self, from: data)
                 
                 DispatchQueue.main.async {
-                    completion(.success(posts))
+                    completion(.success(vacancies))
                 }
                 
             }
@@ -107,7 +104,7 @@ final class PostStorage: IStorage {
         
     }
     
-    func fetchFavourites(completion: @escaping (Swift.Result<[IPost], Error>) -> Void) {
+    func fetchFavourites(completion: @escaping (Swift.Result<[IVacancy], Error>) -> Void) {
         
         DispatchQueue.global().async {
             
@@ -123,12 +120,12 @@ final class PostStorage: IStorage {
         
     }
     
-    func addToFavourite(post: IPost, completion: @escaping (Error?) -> Void) {
+    func addToFavourite(vacancy: IVacancy, completion: @escaping (Error?) -> Void) {
         
         DispatchQueue.global().async {
             
-            if let post = post as? Post, !self.favourites.contains(post) {
-                self.favourites.append(post)
+            if let vacancy = vacancy as? Vacancy, !self.favourites.contains(vacancy) {
+                self.favourites.append(vacancy)
             }
 
             DispatchQueue.main.async {
@@ -139,12 +136,12 @@ final class PostStorage: IStorage {
         
     }
     
-    func removeFromFavourite(post: IPost, completion: @escaping (Error?) -> Void) {
+    func removeFromFavourite(vacancy: IVacancy, completion: @escaping (Error?) -> Void) {
         
         DispatchQueue.global().async {
             
-            if let post = post as? Post {
-                self.favourites.removeAll(where: { $0.id == post.id })
+            if let vacancy = vacancy as? Vacancy {
+                self.favourites.removeAll(where: { $0.id == vacancy.id })
             }
 
             DispatchQueue.main.async {
@@ -155,9 +152,9 @@ final class PostStorage: IStorage {
         
     }
     
-    func isFavourite(post: IPost) -> Bool {
+    func isFavourite(vacancy: IVacancy) -> Bool {
         
-        self.favouritesIds.contains(post.id)
+        self.favouritesIds.contains(vacancy.id)
         
     }
     
@@ -165,9 +162,14 @@ final class PostStorage: IStorage {
         self.favouritesIds = self.favouritesSet.map { $0.id }
     }
     
-    @objc
-    private func favouritesDidChange() {
+//    @objc
+//    private func favouritesDidChange() {
+//        self.updateFavouritesIds()
+//    }
+    
+    private func updateFavouritesCompletion() {
         self.updateFavouritesIds()
+        NotificationCenter.default.post(name: .favouritesDidChange, object: nil)
     }
     
 }

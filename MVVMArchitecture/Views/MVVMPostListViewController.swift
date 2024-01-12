@@ -9,7 +9,7 @@ import UIKit
 
 final class MVVMPostListViewController: UIViewController {
 
-    var viewModel: IPostListViewModel!
+    var viewModel: IVacancyListViewModel!
     
     private var tableView: UITableView!
     
@@ -33,7 +33,7 @@ final class MVVMPostListViewController: UIViewController {
         self.tableView.dataSource = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
+        self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
         
     }
     
@@ -98,16 +98,16 @@ extension MVVMPostListViewController {
 extension MVVMPostListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.viewModel.posts.count
+        self.viewModel.vacancies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VacancyCell", for: indexPath) as? VacancyCell else { return UITableViewCell() }
         
-        let post = self.viewModel.posts[indexPath.row]
+        let vacancy = self.viewModel.vacancies[indexPath.row]
         
-        cell.setup(post: post)
+        cell.setup(vacancy: vacancy)
         
         return cell
         

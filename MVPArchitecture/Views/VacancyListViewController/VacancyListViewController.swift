@@ -1,5 +1,5 @@
 //
-//  PostListViewController.swift
+//  VacancyListViewController.swift
 //  IosSolid
 //
 //  Created by Grigory Sapogov on 23.12.2023.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol IPostListViewController: UIViewController {
+protocol IVacancyListViewController: UIViewController {
     
     func updateView()
     
@@ -17,15 +17,15 @@ protocol IPostListViewController: UIViewController {
     
 }
 
-final class PostListViewController: UIViewController {
+final class VacancyListViewController: UIViewController {
 
-    var presenter: IPostListPresenter!
+    var presenter: IVacancyListPresenter!
     
     private var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Posts"
+        self.title = "Vacancy"
         self.view.backgroundColor = .systemBackground
         self.presenter.view = self
         self.setupTableView()
@@ -44,7 +44,7 @@ final class PostListViewController: UIViewController {
         self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        self.tableView.register(UINib(nibName: "PostCell", bundle: nil), forCellReuseIdentifier: "PostCell")
+        self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
         
     }
     
@@ -74,7 +74,7 @@ final class PostListViewController: UIViewController {
     
 }
 
-extension PostListViewController: IPostListViewController {
+extension VacancyListViewController: IVacancyListViewController {
     
     func updateView() {
         
@@ -95,10 +95,10 @@ extension PostListViewController: IPostListViewController {
         
     }
     
-    private func showPost(post: IPost) {
+    private func showPost(vacancy: IVacancy) {
         
-        let presenter = PostDetailViewPresenter(post: post)
-        let viewController = PostDetailViewController()
+        let presenter = VacancyDetailViewPresenter(vacancy: vacancy)
+        let viewController = VacancyDetailViewController()
         viewController.presenter = presenter
         
         self.navigationController?.pushViewController(viewController, animated: true)
@@ -107,21 +107,21 @@ extension PostListViewController: IPostListViewController {
     
 }
 
-extension PostListViewController: UITableViewDataSource {
+extension VacancyListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        self.presenter.posts.count
+        self.presenter.vacancies.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "PostCell", for: indexPath) as? PostCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "VacancyCell", for: indexPath) as? VacancyCell else { return UITableViewCell() }
         
-        let post = self.presenter.posts[indexPath.row]
+        let vacancy = self.presenter.vacancies[indexPath.row]
         
-        let isFavourite = self.presenter.isFavourite(post: post)
+        let isFavourite = self.presenter.isFavourite(vacancy: vacancy)
         
-        cell.setup(post: post)
+        cell.setup(vacancy: vacancy)
         cell.setup(isFavourite: isFavourite)
         
         return cell
@@ -130,26 +130,26 @@ extension PostListViewController: UITableViewDataSource {
 
 }
 
-extension PostListViewController: UITableViewDelegate {
+extension VacancyListViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let post = self.presenter.posts[indexPath.row]
+        let vacancy = self.presenter.vacancies[indexPath.row]
         
-        self.showPost(post: post)
+        self.showPost(vacancy: vacancy)
         
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 
-        let post = self.presenter.posts[indexPath.row]
+        let vacancy = self.presenter.vacancies[indexPath.row]
         
         let favouriteTrailingAction = FavouriteTrailingAction()
         
-        let action = favouriteTrailingAction.trailingAction(post: post) { [weak self] in
-            self?.presenter.addToFavourite(post: post)
+        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy) { [weak self] in
+            self?.presenter.addToFavourite(vacancy: vacancy)
         } remove: { [weak self] in
-            self?.presenter.removeFromFavourite(post: post)
+            self?.presenter.removeFromFavourite(vacancy: vacancy)
         }
 
         let config = UISwipeActionsConfiguration(actions: [action])

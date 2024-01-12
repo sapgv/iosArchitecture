@@ -1,5 +1,5 @@
 //
-//  PostDetailViewController.swift
+//  VacancyDetailViewController.swift
 //  iosArchitecture
 //
 //  Created by Grigory Sapogov on 07.01.2024.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol IPostDetailViewController: UIViewController {
+protocol IVacancyDetailViewController: UIViewController {
     
     func updateView()
     
@@ -15,9 +15,9 @@ protocol IPostDetailViewController: UIViewController {
     
 }
 
-final class PostDetailViewController: UIViewController {
+final class VacancyDetailViewController: UIViewController {
     
-    var presenter: IPostDetailViewPresenter!
+    var presenter: IVacancyDetailViewPresenter!
     
     private let titleLabel: DetailTitleLabel = DetailTitleLabel()
     
@@ -29,7 +29,7 @@ final class PostDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Post"
+        self.title = "Vacancy"
         self.view.backgroundColor = .systemBackground
         self.presenter.view = self
         self.setupStackView()
@@ -65,8 +65,8 @@ final class PostDetailViewController: UIViewController {
     }
     
     private func setupView() {
-        self.titleLabel.text = self.presenter.post.title
-        self.textLabel.text = self.presenter.post.body
+        self.titleLabel.text = self.presenter.vacancy.title
+        self.textLabel.text = self.presenter.vacancy.body
     }
     
     private func layout() {
@@ -92,7 +92,7 @@ final class PostDetailViewController: UIViewController {
     
 }
 
-extension PostDetailViewController: IPostDetailViewController {
+extension VacancyDetailViewController: IVacancyDetailViewController {
     
     func updateView() {
         
