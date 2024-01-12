@@ -41,6 +41,13 @@ final class VacancyListViewController: UIViewController {
         
     }
     
+    @objc
+    private func refresh() {
+        
+        self.update()
+        
+    }
+    
     private func layout() {
         
         self.tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -81,13 +88,6 @@ extension VacancyListViewController {
             }
             
         }
-        
-    }
-    
-    @objc
-    private func refresh() {
-        
-        self.update()
         
     }
     
