@@ -28,7 +28,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DiW-mL-mWf" customClass="FavouriteImageView" customModule="MVPArchitecture">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DiW-mL-mWf" customClass="FavouriteImageView" customModule="MVCArchitecture" customModuleProvider="target">
                                         <rect key="frame" x="274" y="68.666666666666671" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="DiW-mL-mWf" secondAttribute="height" multiplier="1:1" id="3W7-5Q-Jjp"/>

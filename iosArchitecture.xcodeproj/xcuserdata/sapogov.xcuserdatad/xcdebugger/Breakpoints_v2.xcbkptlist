@@ -52,5 +52,53 @@
             </Locations>
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "BCD348AA-B349-4C39-AAC8-DF31308CD5F6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "MVCArchitecture/Views/FavouriteVacancyListViewController/FavouriteVacancyListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
+            landmarkName = "favouritesDidChange()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "BCD348AA-B349-4C39-AAC8-DF31308CD5F6 - 718ecd48977a99a4"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVCArchitecture.FavouriteVacancyListViewController.favouritesDidChange() -&gt; ()"
+                  moduleName = "MVCArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sapogov/Projects/work/iosArchitecture/MVCArchitecture/Views/FavouriteVacancyListViewController/FavouriteVacancyListViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "154"
+                  endingLineNumber = "154"
+                  offsetFromSymbolStart = "24">
+               </Location>
+               <Location
+                  uuid = "BCD348AA-B349-4C39-AAC8-DF31308CD5F6 - 718ecd48977a99cb"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "MVCArchitecture.FavouriteVacancyListViewController.favouritesDidChange() -&gt; ()"
+                  moduleName = "MVCArchitecture"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sapogov/Projects/work/iosArchitecture/MVCArchitecture/Views/FavouriteVacancyListViewController/FavouriteVacancyListViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "153"
+                  endingLineNumber = "153"
+                  offsetFromSymbolStart = "24">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

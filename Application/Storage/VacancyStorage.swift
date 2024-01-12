@@ -162,11 +162,6 @@ final class VacancyStorage: IStorage {
         self.favouritesIds = self.favouritesSet.map { $0.id }
     }
     
-//    @objc
-//    private func favouritesDidChange() {
-//        self.updateFavouritesIds()
-//    }
-    
     private func updateFavouritesCompletion() {
         self.updateFavouritesIds()
         NotificationCenter.default.post(name: .favouritesDidChange, object: nil)

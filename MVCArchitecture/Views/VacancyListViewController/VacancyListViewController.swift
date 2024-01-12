@@ -1,13 +1,13 @@
 //
-//  MVCListViewController.swift
-//  iosArchitecture
+//  VacancyListViewController.swift
+//  MVCArchitecture
 //
-//  Created by Grigory Sapogov on 31.12.2023.
+//  Created by Grigory Sapogov on 12.01.2024.
 //
 
 import UIKit
 
-final class MVCListViewController: UIViewController {
+final class VacancyListViewController: UIViewController {
 
     private var vacancies: [IVacancy] = []
     
@@ -19,7 +19,7 @@ final class MVCListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Posts"
+        self.title = "Vacancy"
         self.view.backgroundColor = .systemBackground
         self.setupTableView()
         self.layout()
@@ -34,6 +34,7 @@ final class MVCListViewController: UIViewController {
         
         self.tableView = UITableView()
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.refreshControl = UIRefreshControl()
         self.tableView.refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
         self.tableView.register(UINib(nibName: "VacancyCell", bundle: nil), forCellReuseIdentifier: "VacancyCell")
@@ -61,7 +62,7 @@ final class MVCListViewController: UIViewController {
 
 //MARK: - Update
 
-extension MVCListViewController {
+extension VacancyListViewController {
     
     private func fetchFromStorage() {
         
@@ -124,24 +125,89 @@ extension MVCListViewController {
     
 }
 
-extension MVCListViewController {
+extension VacancyListViewController {
     
-    func updateView() {
+    private func updateView() {
         
         self.endRefreshing()
         self.tableView.reloadData()
         
     }
     
-    func showError(error: Error) {
+    private func updateViewFavourite(indexPath: IndexPath) {
+        
+        self.tableView.reloadRows(at: [indexPath], with: .automatic)
+        
+    }
+    
+    private func showError(error: Error) {
         
         print(error)
         
     }
     
+    private func showPost(vacancy: IVacancy) {
+        
+        let viewController = VacancyDetailViewController()
+        viewController.vacancy = vacancy
+        viewController.storage = VacancyStorage.shared
+
+        self.navigationController?.pushViewController(viewController, animated: true)
+        
+    }
+    
 }
 
-extension MVCListViewController: UITableViewDataSource {
+//MARK: - Favourites
+
+extension VacancyListViewController {
+    
+    private func isFavourite(vacancy: IVacancy) -> Bool {
+        
+        self.storage.isFavourite(vacancy: vacancy)
+        
+    }
+    
+    private func addToFavourite(vacancy: IVacancy) {
+        
+        self.storage.addToFavourite(vacancy: vacancy) { [weak self] error in
+            
+            if let error = error {
+                self?.showError(error: error)
+                return
+            }
+            
+            if let index = self?.vacancies.firstIndex(where: { $0.id == vacancy.id }) {
+                let i = Int(index)
+                let indexPath = IndexPath(row: i, section: 0)
+                self?.updateViewFavourite(indexPath: indexPath)
+            }
+            
+        }
+    }
+    
+    private func removeFromFavourite(vacancy: IVacancy) {
+        
+        self.storage.removeFromFavourite(vacancy: vacancy) { [weak self] error in
+            
+            if let error = error {
+                self?.showError(error: error)
+                return
+            }
+            
+            if let index = self?.vacancies.firstIndex(where: { $0.id == vacancy.id }) {
+                let i = Int(index)
+                let indexPath = IndexPath(row: i, section: 0)
+                self?.updateViewFavourite(indexPath: indexPath)
+            }
+            
+        }
+        
+    }
+    
+}
+
+extension VacancyListViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         self.vacancies.count
@@ -153,10 +219,43 @@ extension MVCListViewController: UITableViewDataSource {
         
         let vacancy = self.vacancies[indexPath.row]
         
+        let isFavourite = self.isFavourite(vacancy: vacancy)
+        
         cell.setup(vacancy: vacancy)
+        cell.setup(isFavourite: isFavourite)
         
         return cell
         
     }
 
+}
+
+extension VacancyListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let vacancy = self.vacancies[indexPath.row]
+        
+        self.showPost(vacancy: vacancy)
+        
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+
+        let vacancy = self.vacancies[indexPath.row]
+        
+        let favouriteTrailingAction = FavouriteTrailingAction()
+        
+        let action = favouriteTrailingAction.trailingAction(vacancy: vacancy) { [weak self] in
+            self?.addToFavourite(vacancy: vacancy)
+        } remove: { [weak self] in
+            self?.removeFromFavourite(vacancy: vacancy)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: [action])
+        
+        return config
+
+    }
+    
 }
